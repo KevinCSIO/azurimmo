@@ -9,4 +9,8 @@ public Todo(String nom){
 */
 class Todo (var nom: String=""){
     val items = mutableListOf<Item>()
+    override fun toString(): String {
+        val cond=if (items.size>0) " avec ${items.size} items" else ""
+        return "$nom $cond"
+    }
 }
