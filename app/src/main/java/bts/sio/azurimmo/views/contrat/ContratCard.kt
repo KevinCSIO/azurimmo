@@ -1,4 +1,4 @@
-package bts.sio.azurimmo.views.appartement
+package bts.sio.azurimmo.views.contrat
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,10 +11,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import bts.sio.azurimmo.model.Appartement
+import bts.sio.azurimmo.model.Contrat
 
 @Composable
-fun AppartementCard(appartement: Appartement) {  // Notez l'annotation @Composable
+fun ContratCard(contrat: Contrat) {  // Notez l'annotation @Composable
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -24,10 +24,12 @@ fun AppartementCard(appartement: Appartement) {  // Notez l'annotation @Composab
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
-            Text(text = appartement.numero.toString(), style = MaterialTheme.typography.bodyMedium)
-            Text(text = appartement.surface.toString(), style = MaterialTheme.typography.bodyMedium)
-            Text(text = appartement.nbrePieces.toString(), style = MaterialTheme.typography.bodyMedium)
-            Text(text = appartement.description, style = MaterialTheme.typography.bodyMedium)
+            Text(text = contrat.dateEntree.toString(), style = MaterialTheme.typography.bodyMedium)
+            Text(text = contrat.dateSortie.toString(), style = MaterialTheme.typography.bodyMedium)
+            Text(text = contrat.montantLoyer.toString(), style = MaterialTheme.typography.bodyMedium)
+            Text(text = contrat.montantCharges.toString(), style = MaterialTheme.typography.bodyMedium)
+            Text(text = contrat.statut, style = MaterialTheme.typography.bodyMedium)
+
         }
     }
 }

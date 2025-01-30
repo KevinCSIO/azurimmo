@@ -7,13 +7,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import bts.sio.azurimmo.views.appartement.AppartementList
 import bts.sio.azurimmo.views.batiment.BatimentList
+import bts.sio.azurimmo.views.contrat.ContratList
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            ContratList()
             //BatimentList()
-            AppartementList()
+            //AppartementList()
         }
     }
 }
@@ -28,4 +30,10 @@ fun PreviewBatimentList() {
 @Composable
 fun PreviewAppartementList() {
     AppartementList()
+}
+// Fonction pour prévisualiser l'interface
+@Preview(showBackground = true)
+@Composable
+fun PreviewContratList() {
+    ContratList()
 }
