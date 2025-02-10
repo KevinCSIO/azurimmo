@@ -14,14 +14,15 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            InterventionList()
+            MainScreen()
+            //InterventionList()
             //ContratList()
             //BatimentList()
             //AppartementList()
         }
     }
 }
-// Fonction pour prévisualiser l'interface
+/*// Fonction pour prévisualiser l'interface
 @Preview(showBackground = true)
 @Composable
 fun PreviewBatimentList() {
@@ -39,3 +40,4 @@ fun PreviewAppartementList() {
 fun PreviewContratList() {
     ContratList()
 }
+*/

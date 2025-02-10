@@ -17,7 +17,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 // Fonction Composable pour afficher la liste des bâtiments
 @Composable
-fun BatimentList( viewModel: BatimentViewModel = viewModel()) {
+fun BatimentList(
+    viewModel: BatimentViewModel = viewModel(),
+    onBatimentClick: (Int) -> Unit
+) {
 
     val batiments = viewModel.batiments.value
     val isLoading = viewModel.isLoading.value
@@ -30,7 +33,6 @@ fun BatimentList( viewModel: BatimentViewModel = viewModel()) {
                     modifier = Modifier.align(Alignment.Center)
                 )
             }
-
             errorMessage != null -> {
                 Text(
                     text = errorMessage ?: "Erreur inconnue",
@@ -40,11 +42,27 @@ fun BatimentList( viewModel: BatimentViewModel = viewModel()) {
                     color = MaterialTheme.colorScheme.error
                 )
             }
-
             else -> {
                 LazyColumn {
+                    //Ajout du titre avant la liste des bâtiments
+                    item {
+                        Text(
+                            text = "Liste des bâtiments",
+                            style = MaterialTheme.typography.titleLarge.copy(fontWeight = androidx.compose.ui.text.font.FontWeight.Bold),
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(16.dp),
+                            textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+
+                    // Liste des bâtiments
                     items(batiments) { batiment ->
-                        BatimentCard(batiment = batiment) // Appel de la fonction BatimentCard
+                        BatimentCard(
+                            batiment = batiment,
+                            onClick = { onBatimentClick(batiment.id) }
+                        )
                     }
                 }
             }
