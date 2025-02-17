@@ -22,6 +22,9 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             BatimentList(
                 onBatimentClick = { batimentId ->
                     navController.navigate("batiment_appartements_list/$batimentId")
+                },
+                onAddBatimentClick = {
+                    navController.navigate("add_batiment")
                 }
             )
         }
@@ -32,7 +35,10 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
         ) { backStackEntry ->
             val batimentId = backStackEntry.arguments?.getInt("batimentId")
             if (batimentId != null) {
-                AppartementList(batimentId = batimentId)
+                AppartementList(batimentId = batimentId,
+                    onAddAppartementClick = {
+                        navController.navigate("add_appartement")
+                    })
             } else {
                 Text("Erreur : Identifiant de bâtiment manquant")
             }
