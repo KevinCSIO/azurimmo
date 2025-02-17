@@ -32,4 +32,7 @@ interface ApiService {
     @POST("api/batiments/")
     suspend fun addBatiment(@Body batiment: Batiment): Response<Batiment>
 
+    @POST("api/appartements/")
+    suspend fun addAppartement(@Body appartement: Appartement): Response<Appartement>
+
 }

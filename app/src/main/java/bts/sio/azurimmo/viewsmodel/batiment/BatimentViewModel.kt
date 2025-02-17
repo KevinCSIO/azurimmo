@@ -32,6 +32,7 @@ class BatimentViewModel : ViewModel() {
             try {
                 val response = RetrofitInstance.api.getBatiments()
                 _batiments.value = response
+                println("chargement batiments"+ response)
             } catch (e: Exception) {
                 _errorMessage.value = "Erreur : ${e.message}"
             } finally {
@@ -48,6 +49,7 @@ class BatimentViewModel : ViewModel() {
                 val response = RetrofitInstance.api.getBatimentById(batimentId)
                 if (response != null) {
                     _batiment.value = response
+
                 } else {
                     _errorMessage.value = "Aucun bâtiment trouvé avec l'ID $batimentId"
                 }

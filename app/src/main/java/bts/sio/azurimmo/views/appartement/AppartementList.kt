@@ -13,8 +13,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,6 +45,7 @@ fun AppartementList( viewModel: AppartementViewModel = viewModel(),
     LaunchedEffect(batimentId) {
         viewModel.getAppartementsByBatimentId(batimentId)
         viewModelBat.getBatiment(batimentId)
+        println("chargement app"+ appartements)
     }
     Box(modifier = Modifier.fillMaxSize()) {
         when {
@@ -61,17 +66,22 @@ fun AppartementList( viewModel: AppartementViewModel = viewModel(),
             }
 
             else -> {
-                Column {
-                    Button(
-                        onClick = onAddAppartementClick,
-                        modifier = Modifier
-                            .widthIn(min = 150.dp, max = 300.dp)
-                            .align(Alignment.CenterHorizontally)
-                            .padding(16.dp)
-                    ) {
-                        Text("Ajouter un appartement")
+                println("avant floating button" + batimentId)
+                FloatingActionButton(
+                    onClick = {
+                        println("Bouton + cliqué" + batimentId) // Vérification Logcat
+                        onAddAppartementClick()
+                    },
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)  // Assure qu'il est bien visible
+                        .padding(16.dp)
+                        .background(MaterialTheme.colorScheme.secondary),
+                    content = {
+                        Icon(Icons.Default.Add, contentDescription = "Ajouter un appartement")
                     }
-                    LazyColumn {
+                )
+
+                LazyColumn {
                         if (batiment != null) {
                             item {
                                 Column(
@@ -131,13 +141,12 @@ fun AppartementList( viewModel: AppartementViewModel = viewModel(),
                                             .padding(16.dp),
                                         textAlign = TextAlign.Center, // Alignement à gauche
                                         color = MaterialTheme.colorScheme.primary
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+                                   )
+                               }
+                           }
+                       }
+                   }
+               }
+           }
+       }
 }
