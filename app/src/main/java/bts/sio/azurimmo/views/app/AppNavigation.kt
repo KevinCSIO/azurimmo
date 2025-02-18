@@ -39,7 +39,7 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             if (batimentId != null) {
                 AppartementList(batimentId = batimentId,
                     onAddAppartementClick = {
-                        navController.navigate("add_appartement")
+                        navController.navigate("add_appartement/$batimentId")
                     })
             } else {
                 Text("Erreur : Identifiant de bâtiment manquant")

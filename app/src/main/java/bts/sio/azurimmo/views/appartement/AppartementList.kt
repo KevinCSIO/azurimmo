@@ -45,7 +45,6 @@ fun AppartementList( viewModel: AppartementViewModel = viewModel(),
     LaunchedEffect(batimentId) {
         viewModel.getAppartementsByBatimentId(batimentId)
         viewModelBat.getBatiment(batimentId)
-        println("chargement app"+ appartements)
     }
     Box(modifier = Modifier.fillMaxSize()) {
         when {
@@ -66,7 +65,6 @@ fun AppartementList( viewModel: AppartementViewModel = viewModel(),
             }
 
             else -> {
-                println("avant floating button" + batimentId)
                 FloatingActionButton(
                     onClick = {
                         println("Bouton + cliqué" + batimentId) // Vérification Logcat

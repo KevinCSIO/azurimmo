@@ -28,6 +28,8 @@ fun AppartementAdd(onAddAppartement: (Appartement) -> Unit, batimentId: Int) {
     val viewModel: AppartementViewModel = viewModel()
     var description by remember { mutableStateOf("") }
     var numero by remember { mutableStateOf("") }
+    var surface by remember { mutableStateOf("") }
+    var nbrePieces by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -37,14 +39,28 @@ fun AppartementAdd(onAddAppartement: (Appartement) -> Unit, batimentId: Int) {
         TextField(
             value = description,
             onValueChange = { description = it },
-            label = { Text("description") },
+            label = { Text("Description") },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
         TextField(
             value = numero,
             onValueChange = { numero = it },
-            label = { Text("numero") },
+            label = { Text("Numero") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        TextField(
+            value = surface,
+            onValueChange = { surface = it },
+            label = { Text("Surface") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        TextField(
+            value = nbrePieces,
+            onValueChange = { nbrePieces = it },
+            label = { Text("Nombre de pieces") },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -56,8 +72,8 @@ fun AppartementAdd(onAddAppartement: (Appartement) -> Unit, batimentId: Int) {
                     id = 0,
                     numero = numero,
                     description = description,
-                    surface = 10.2f,
-                    nbrePieces = 2,
+                    surface = surface.toFloat(),
+                    nbrePieces = nbrePieces.toInt(),
                     batiment = batiment
                 )
                 viewModel.addAppartement(appartement)
@@ -65,7 +81,7 @@ fun AppartementAdd(onAddAppartement: (Appartement) -> Unit, batimentId: Int) {
             },
             modifier = Modifier.align(Alignment.End)
         ) {
-            Text("Ajouter le batiment ")
+            Text("Ajouter l'appartement ")
         }
     }
 }
