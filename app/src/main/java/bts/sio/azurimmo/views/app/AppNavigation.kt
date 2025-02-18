@@ -8,7 +8,9 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import bts.sio.azurimmo.views.appartement.AppartementAdd
 import bts.sio.azurimmo.views.appartement.AppartementList
+import bts.sio.azurimmo.views.batiment.BatimentAdd
 import bts.sio.azurimmo.views.batiment.BatimentList
 
 @Composable
@@ -37,11 +39,35 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             if (batimentId != null) {
                 AppartementList(batimentId = batimentId,
                     onAddAppartementClick = {
-                        navController.navigate("add_appartement")
+                        navController.navigate("add_appartement/$batimentId")
                     })
             } else {
                 Text("Erreur : Identifiant de bâtiment manquant")
             }
         }
+
+        composable("add_batiment") {
+            BatimentAdd(onBatimentAdd = {
+                navController.popBackStack() // La navigation est gérée ici
+            })
+        }
+
+        // Route pour ajouter un appartement
+        composable("add_appartement/{batimentId}",
+            arguments = listOf(navArgument("batimentId") { type = NavType.IntType })
+        )
+        { backStackEntry ->
+            val batimentId = backStackEntry.arguments?.getInt("batimentId")
+            println("Ouverture de add_appartement avec batimentId = $batimentId")
+            if (batimentId != null) {
+                AppartementAdd( onAddAppartement = { navController.popBackStack()},
+                    batimentId = batimentId
+                )
+            } else {
+                Text("Erreur : Identifiant de bâtiment manquant")
+            }
+        }
+
     }
+
 }

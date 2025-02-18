@@ -1,5 +1,6 @@
 package bts.sio.azurimmo
 
+import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -17,6 +18,9 @@ import bts.sio.azurimmo.views.batiment.BatimentList
 
 @Composable
 fun MainScreen() {
+
+    println("MAINSCREEN")
+    Log.d("mainscree","hjkhk")
     val navController = rememberNavController()
     Scaffold(
         topBar = { AppHeader() } // TopBar commune à tous les écrans

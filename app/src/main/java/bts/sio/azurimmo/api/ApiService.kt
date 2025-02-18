@@ -4,7 +4,10 @@ import bts.sio.azurimmo.model.Appartement
 import bts.sio.azurimmo.model.Batiment
 import bts.sio.azurimmo.model.Contrat
 import bts.sio.azurimmo.model.Intervention
+import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ApiService {
@@ -25,5 +28,11 @@ interface ApiService {
 
     @GET("/api/appartements/batiment/{batimentId}")
     suspend fun getAppartementsByBatimentId(@Path("batimentId") batimentId: Int): List<Appartement>
+
+    @POST("api/batiments/")
+    suspend fun addBatiment(@Body batiment: Batiment): Response<Batiment>
+
+    @POST("api/appartements/")
+    suspend fun addAppartement(@Body appartement: Appartement): Response<Appartement>
 
 }

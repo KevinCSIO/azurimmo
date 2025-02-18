@@ -60,6 +60,16 @@ fun AppartementCard(appartement: Appartement) {
                     style = MaterialTheme.typography.bodyLarge
                 )
             }
+            Row {
+                Text(
+                    text = "Nombre de pièces : ",
+                    style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                )
+                Text(
+                    text = appartement.nbrePieces.toString(),
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }
         }
     }
 }
