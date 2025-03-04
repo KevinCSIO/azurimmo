@@ -1,5 +1,6 @@
 package bts.sio.azurimmo.views.contrat
 
+import AppartementViewModel
 import ContratViewModel
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,6 +11,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -17,11 +19,18 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import bts.sio.azurimmo.model.Contrat
 
 @Composable
-fun ContratList( viewModel: ContratViewModel = viewModel()) {
+fun ContratList( viewModel: ContratViewModel = viewModel(), appartementId: Int) {
 
+    val viewModelApp: AppartementViewModel = viewModel()
     val contrats = viewModel.contrats.value
+    val appartement = viewModelApp.appartement.value
     val isLoading = viewModel.isLoading.value
     val errorMessage = viewModel.errorMessage.value
+
+    LaunchedEffect(appartementId) {
+        viewModel.getContratsByAppartementId(appartementId)
+        viewModelApp.getAppartement(appartementId)
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         when {
