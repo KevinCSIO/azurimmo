@@ -123,7 +123,7 @@ fun AppartementList(
             }
         }
 
-        // ✅ Bouton flottant TOUJOURS visible
+        // Bouton + toujours visible
         FloatingActionButton(
             onClick = {
                 println("Bouton + cliqué $batimentId")
