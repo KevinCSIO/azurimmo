@@ -76,4 +76,25 @@ class ContratViewModel : ViewModel() {
         }
     }
 
+    fun addContrat(contrat: Contrat) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+
+                // Envoi à l'API (ici, un POST)
+                val response = RetrofitInstance.api.addContrat(contrat)
+                if (response.isSuccessful) {
+                    // Ajout réussi, on met à jour la liste des bâtiments
+                    getContrats() // Recharge les bâtiments pour inclure le nouveau
+                } else {
+                    _errorMessage.value = "Erreur lors de l'ajout du contrat : ${response.message()}"
+                }
+            } catch (e: Exception) {
+                _errorMessage.value = "Erreur : ${e.message}"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
 }

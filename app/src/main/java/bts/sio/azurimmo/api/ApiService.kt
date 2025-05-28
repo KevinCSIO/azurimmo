@@ -17,11 +17,20 @@ interface ApiService {
     @GET("api/batiments/{id}")
     suspend fun getBatimentById(@Path("id") batimentId: Int): Batiment
 
+    @POST("api/batiments/")
+    suspend fun addBatiment(@Body batiment: Batiment): Response<Batiment>
+
     @GET("api/appartements/")
     suspend fun getAppartements(): List<Appartement>
 
     @GET("api/appartements/{id}")
     suspend fun getAppartementById(@Path("id") appartementId: Int): Appartement
+
+    @GET("/api/appartements/batiment/{batimentId}")
+    suspend fun getAppartementsByBatimentId(@Path("batimentId") batimentId: Int): List<Appartement>
+
+    @POST("api/appartements/")
+    suspend fun addAppartement(@Body appartement: Appartement): Response<Appartement>
 
     @GET("api/contrats/")
     suspend fun getContrats(): List<Contrat>
@@ -32,16 +41,10 @@ interface ApiService {
     @GET("/api/contrats/appartement/{appartementId}")
     suspend fun getContratsByAppartementId(@Path("appartementId") appartementId: Int): List<Contrat>
 
+    @POST("api/contrats/")
+    suspend fun addContrat(@Body contrat: Contrat): Response<Contrat>
+
     @GET("api/interventions/")
     suspend fun getInterventions(): List<Intervention>
-
-    @GET("/api/appartements/batiment/{batimentId}")
-    suspend fun getAppartementsByBatimentId(@Path("batimentId") batimentId: Int): List<Appartement>
-
-    @POST("api/batiments/")
-    suspend fun addBatiment(@Body batiment: Batiment): Response<Batiment>
-
-    @POST("api/appartements/")
-    suspend fun addAppartement(@Body appartement: Appartement): Response<Appartement>
 
 }

@@ -19,6 +19,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import bts.sio.azurimmo.model.Appartement
+import bts.sio.azurimmo.model.Batiment
+import bts.sio.azurimmo.model.Contrat
 
 @Composable
 fun ContratAdd(onAddContrat: (Contrat) -> Unit, appartementId: Int) {
@@ -72,22 +75,23 @@ fun ContratAdd(onAddContrat: (Contrat) -> Unit, appartementId: Int) {
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = {
-                val appartement = Appartement(id = appartementId, dateEntree = "zouzou", dateSortie = "labas") // seul l’id nous interesse ici
+                val appartement = Appartement(id = appartementId, numero = "", surface = 0f , nbrePieces = 0, description = "", batiment = Batiment(id = 0, adresse = "", ville = "")) // seul l’id nous interesse ici
 
-                val appartement = Appartement(
+                val contrat = Contrat(
                     id = 0,
-                    numero = numero,
-                    description = description,
-                    surface = surface.toFloat(),
-                    nbrePieces = nbrePieces.toInt(),
-                    batiment = batiment
+                    dateEntree = dateEntree,
+                    dateSortie = dateSortie,
+                    montantLoyer = montantLoyer.toDouble(),
+                    montantCharges = montantCharges.toDouble(),
+                    statut = statut,
+                    appartement = appartement
                 )
-                viewModel.addAppartement(appartement)
-                onAddAppartement(appartement)
+                viewModel.addContrat(contrat)
+                onAddContrat(contrat)
             },
             modifier = Modifier.align(Alignment.End)
         ) {
-            Text("Ajouter l'appartement ")
+            Text("Ajouter le contrat ")
         }
     }
 }
