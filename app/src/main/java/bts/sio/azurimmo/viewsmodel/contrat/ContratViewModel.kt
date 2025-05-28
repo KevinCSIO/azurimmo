@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class ContratViewModel : ViewModel() {
 
-    // Liste mutable des bâtiments
+    // Liste mutable des contrats
     private val _contrats = mutableStateOf<List<Contrat>>(emptyList())
     val contrats: State<List<Contrat>> = _contrats
 

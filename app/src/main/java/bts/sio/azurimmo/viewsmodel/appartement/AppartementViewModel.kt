@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class AppartementViewModel : ViewModel() {
 
-    // Liste mutable des bâtiments
+    // Liste mutable des appartements
     private val _appartements = mutableStateOf<List<Appartement>>(emptyList())
     val appartements: State<List<Appartement>> = _appartements
 

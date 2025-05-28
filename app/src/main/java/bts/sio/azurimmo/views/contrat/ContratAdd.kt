@@ -75,7 +75,16 @@ fun ContratAdd(onAddContrat: (Contrat) -> Unit, appartementId: Int) {
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = {
-                val appartement = Appartement(id = appartementId, numero = "", surface = 0f , nbrePieces = 0, description = "", batiment = Batiment(id = 0, adresse = "", ville = "")) // seul l’id nous interesse ici
+                val appartement = Appartement(
+                    id = appartementId,
+                    numero = "",
+                    surface = 0f ,
+                    nbrePieces = 0,
+                    description = "",
+                    batiment = Batiment(
+                        id = 0,
+                        adresse = "",
+                        ville = "")) // seul l’id nous interesse ici
 
                 val contrat = Contrat(
                     id = 0,

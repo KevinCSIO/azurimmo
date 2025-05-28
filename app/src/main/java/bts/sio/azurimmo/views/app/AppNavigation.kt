@@ -13,6 +13,7 @@ import bts.sio.azurimmo.views.appartement.AppartementList
 import bts.sio.azurimmo.views.batiment.BatimentAdd
 import bts.sio.azurimmo.views.batiment.BatimentList
 import bts.sio.azurimmo.views.accueil.AccueilScreen
+import bts.sio.azurimmo.views.contrat.ContratAdd
 import bts.sio.azurimmo.views.contrat.ContratList
 
 
@@ -89,6 +90,21 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
                     onAddContratClick = {
                         navController.navigate("add_contrat/$appartementId")
                     }
+                )
+            } else {
+                Text("Erreur : Identifiant d'appartement manquant")
+            }
+        }
+
+        composable("add_contrat/{appartementId}",
+            arguments = listOf(navArgument("appartementId") { type = NavType.IntType })
+        )
+        { backStackEntry ->
+            val appartementId = backStackEntry.arguments?.getInt("appartementId")
+            println("Ouverture de add_contrat avec appartementId = $appartementId")
+            if (appartementId != null) {
+                ContratAdd(onAddContrat = { navController.popBackStack()},
+                    appartementId = appartementId
                 )
             } else {
                 Text("Erreur : Identifiant d'appartement manquant")
