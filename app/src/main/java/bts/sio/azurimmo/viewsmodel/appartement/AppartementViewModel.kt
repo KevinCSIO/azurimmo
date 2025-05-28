@@ -4,6 +4,7 @@ import bts.sio.azurimmo.model.Appartement
 import androidx.compose.runtime.*
 import androidx.lifecycle.viewModelScope
 import bts.sio.azurimmo.api.RetrofitInstance
+import bts.sio.azurimmo.model.Batiment
 import kotlinx.coroutines.launch
 
 class AppartementViewModel : ViewModel() {
@@ -11,6 +12,9 @@ class AppartementViewModel : ViewModel() {
     // Liste mutable des bâtiments
     private val _appartements = mutableStateOf<List<Appartement>>(emptyList())
     val appartements: State<List<Appartement>> = _appartements
+
+    private val _appartement = mutableStateOf<Appartement?>(null)
+    val appartement: State<Appartement?> = _appartement
 
     private val _isLoading = mutableStateOf(false)
     val isLoading: State<Boolean> = _isLoading
@@ -29,6 +33,26 @@ class AppartementViewModel : ViewModel() {
             try {
                 val response = RetrofitInstance.api.getAppartements()
                 _appartements.value = response
+            } catch (e: Exception) {
+                _errorMessage.value = "Erreur : ${e.message}"
+            } finally {
+                _isLoading.value = false
+                println("pas de chargement")
+            }
+        }
+    }
+
+    fun getAppartement(appartementId: Int) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            try {
+                val response = RetrofitInstance.api.getAppartementById(appartementId)
+                if (response != null) {
+                    _appartement.value = response
+
+                } else {
+                    _errorMessage.value = "Aucun bâtiment trouvé avec l'ID $appartementId"
+                }
             } catch (e: Exception) {
                 _errorMessage.value = "Erreur : ${e.message}"
             } finally {
