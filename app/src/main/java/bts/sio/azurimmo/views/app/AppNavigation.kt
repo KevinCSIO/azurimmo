@@ -12,14 +12,20 @@ import bts.sio.azurimmo.views.appartement.AppartementAdd
 import bts.sio.azurimmo.views.appartement.AppartementList
 import bts.sio.azurimmo.views.batiment.BatimentAdd
 import bts.sio.azurimmo.views.batiment.BatimentList
+import bts.sio.azurimmo.views.accueil.AccueilScreen
+
 
 @Composable
 fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
-        startDestination = "batiment_list",
+        startDestination = "home",
         modifier = modifier
     ) {
+        composable("home") {
+            AccueilScreen(navController)
+        }
+
         composable("batiment_list") {
             BatimentList(
                 onBatimentClick = { batimentId ->
