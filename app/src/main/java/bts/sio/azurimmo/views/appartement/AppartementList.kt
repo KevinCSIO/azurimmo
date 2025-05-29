@@ -22,6 +22,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 fun AppartementList(
     viewModel: AppartementViewModel = viewModel(),
     batimentId: Int,
+    onAppartementClick: (Int) -> Unit,
     onAddAppartementClick: () -> Unit
 ) {
     val viewModelBat: BatimentViewModel = viewModel()
@@ -103,7 +104,8 @@ fun AppartementList(
                             }
 
                             items(appartements) { appartement ->
-                                AppartementCard(appartement = appartement)
+                                AppartementCard(appartement = appartement,
+                                    onClick = { onAppartementClick(appartement.id) })
                             }
                         } else {
                             item {

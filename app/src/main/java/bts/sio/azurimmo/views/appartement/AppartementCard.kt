@@ -1,5 +1,6 @@
 package bts.sio.azurimmo.views.appartement
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,11 +17,12 @@ import androidx.compose.ui.unit.dp
 import bts.sio.azurimmo.model.Appartement
 
 @Composable
-fun AppartementCard(appartement: Appartement) {
+fun AppartementCard(appartement: Appartement, onClick: (Int) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(8.dp)
+            .clickable { onClick(appartement.id)},
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp),
         shape = RoundedCornerShape(8.dp)
     ) {

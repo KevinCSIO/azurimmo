@@ -6,5 +6,6 @@ data class Contrat(
     val dateSortie: String,
     val montantLoyer: Double,
     val montantCharges: Double,
-    val statut: String
+    val statut: String,
+    val appartement: Appartement
 )
