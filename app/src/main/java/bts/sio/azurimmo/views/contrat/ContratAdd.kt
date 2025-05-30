@@ -1,6 +1,5 @@
 package bts.sio.azurimmo.views.contrat
 
-import ContratViewModel
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,6 +21,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import bts.sio.azurimmo.model.Appartement
 import bts.sio.azurimmo.model.Batiment
 import bts.sio.azurimmo.model.Contrat
+import bts.sio.azurimmo.viewsmodel.contrat.ContratViewModel
 
 @Composable
 fun ContratAdd(onAddContrat: (Contrat) -> Unit, appartementId: Int) {
@@ -86,7 +86,7 @@ fun ContratAdd(onAddContrat: (Contrat) -> Unit, appartementId: Int) {
                         adresse = "",
                         ville = "")) // seul l’id nous interesse ici
 
-                val contrat = Contrat(
+                /*val contrat = Contrat(
                     id = 0,
                     dateEntree = dateEntree,
                     dateSortie = dateSortie,
@@ -96,7 +96,7 @@ fun ContratAdd(onAddContrat: (Contrat) -> Unit, appartementId: Int) {
                     appartement = appartement
                 )
                 viewModel.addContrat(contrat)
-                onAddContrat(contrat)
+                onAddContrat(contrat)*/
             },
             modifier = Modifier.align(Alignment.End)
         ) {

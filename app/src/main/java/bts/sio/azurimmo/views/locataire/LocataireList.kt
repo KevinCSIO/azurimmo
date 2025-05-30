@@ -1,53 +1,42 @@
-package bts.sio.azurimmo.views.contrat
+package bts.sio.azurimmo.views.locataire
 
-import AppartementViewModel
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import bts.sio.azurimmo.views.appartement.AppartementCard
 import bts.sio.azurimmo.viewsmodel.contrat.ContratViewModel
+import bts.sio.azurimmo.viewsmodel.locataire.LocataireViewModel
 
 @Composable
-fun ContratList(
-    viewModel: ContratViewModel = viewModel(),
-    appartementId: Int,
-    onContratClick: (Int) -> Unit,
-    onAddContratClick: () -> Unit
+fun LocataireList(
+    viewModel: LocataireViewModel = viewModel(),
+    contratId: Int,
+    onLocataireClick: (Int) -> Unit,
+    onAddLocataireClick: () -> Unit
 ) {
-    val viewModelApp: AppartementViewModel = viewModel()
-    val contrats = viewModel.contrats.value
-    val appartement = viewModelApp.appartement.value
+    val viewModelCon: ContratViewModel = viewModel()
+    val locataires = viewModel.locataires.value
+    val contrat = viewModelCon.contrat.value
     val isLoading = viewModel.isLoading.value
     val errorMessage = viewModel.errorMessage.value
 
-    LaunchedEffect(appartementId) {
-        viewModel.getContratsByAppartementId(appartementId)
-        viewModelApp.getAppartement(appartementId)
+    LaunchedEffect(contratId) {
+        viewModel.getLocatairesByContratId(contratId)
+        viewModelCon.getContrat(contratId)
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-
         when {
             isLoading -> {
                 CircularProgressIndicator(
@@ -71,7 +60,7 @@ fun ContratList(
                         .fillMaxSize()
                         .padding(bottom = 80.dp) // espace pour ne pas cacher le bouton
                 ) {
-                    if (appartement != null) {
+                    if (contrat != null) {
                         item {
                             Column(
                                 modifier = Modifier
@@ -81,38 +70,43 @@ fun ContratList(
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Text(
-                                    text = "Informations sur l'appartement",
+                                    text = "Informations sur le contrat",
                                     style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                                     color = MaterialTheme.colorScheme.primary
                                 )
                                 Spacer(modifier = Modifier.height(8.dp))
                                 Text(
-                                    text = "Numéro : ${appartement.numero}",
+                                    text = "Date d'Entrée : ${contrat.dateEntree}",
                                     style = MaterialTheme.typography.bodyLarge,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                                 Text(
-                                    text = "Surface : ${appartement.surface}",
+                                    text = "Date de Sortie : ${contrat.dateSortie}",
                                     style = MaterialTheme.typography.bodyMedium,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                                 Text(
-                                    text = "Nombre de pièces : ${appartement.nbrePieces}",
+                                    text = "Montant du Loyer : ${contrat.montantLoyer}",
                                     style = MaterialTheme.typography.bodyMedium,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                                 Text(
-                                    text = "Description : ${appartement.description}",
+                                    text = "Montant des Charges : ${contrat.montantCharges}",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                                Text(
+                                    text = "Statut : ${contrat.statut}",
                                     style = MaterialTheme.typography.bodyMedium,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                             }
                         }
 
-                        if (contrats.isNotEmpty()) {
+                        if (locataires.isNotEmpty()) {
                             item {
                                 Text(
-                                    text = "Liste des contrats",
+                                    text = "Liste des locataires",
                                     style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -123,14 +117,14 @@ fun ContratList(
                                 )
                             }
 
-                            items(contrats) { contrat ->
-                                ContratCard(contrat = contrat,
-                                    onClick = { onContratClick(contrat.id) })
+                            items(locataires) { locataire ->
+                                LocataireCard(locataire = locataire,
+                                    onLocataireClick)
                             }
                         } else {
                             item {
                                 Text(
-                                    text = "Il n'y a pas de contrat pour cet appartement !",
+                                    text = "Il n'y a pas de locataire pour ce contrat !",
                                     style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -143,18 +137,6 @@ fun ContratList(
                     }
                 }
             }
-        }
-        // Bouton + toujours visible
-        FloatingActionButton(
-            onClick = {
-                println("Bouton + cliqué $appartementId")
-                onAddContratClick()
-            },
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(16.dp)
-        ) {
-            Icon(Icons.Default.Add, contentDescription = "Ajouter un contrat")
         }
     }
 }

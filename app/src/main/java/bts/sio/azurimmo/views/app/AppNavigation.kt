@@ -8,6 +8,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import bts.sio.azurimmo.model.Locataire
 import bts.sio.azurimmo.views.appartement.AppartementAdd
 import bts.sio.azurimmo.views.appartement.AppartementList
 import bts.sio.azurimmo.views.batiment.BatimentAdd
@@ -15,6 +16,7 @@ import bts.sio.azurimmo.views.batiment.BatimentList
 import bts.sio.azurimmo.views.accueil.AccueilScreen
 import bts.sio.azurimmo.views.contrat.ContratAdd
 import bts.sio.azurimmo.views.contrat.ContratList
+import bts.sio.azurimmo.views.locataire.LocataireList
 
 
 @Composable
@@ -87,6 +89,9 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             if (appartementId != null) {
                 ContratList(
                     appartementId = appartementId,
+                    onContratClick = { contratId ->
+                        navController.navigate("contrat_locataires/$contratId")
+                    },
                     onAddContratClick = {
                         navController.navigate("add_contrat/$appartementId")
                     }
@@ -111,6 +116,55 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             }
         }
 
+        composable(
+            route = "contrat_locataires_list/{contratId}",
+            arguments = listOf(navArgument("contratId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val contratId = backStackEntry.arguments?.getInt("contratId")
+            if (contratId != null) {
+                LocataireList(
+                    contratId = contratId,
+                    onAddLocataireClick = {
+                        navController.navigate("add_locataire/$contratId")
+                    }
+                )
+            } else {
+                Text("Erreur : Identifiant de contrat manquant")
+            }
+        }
+
+        composable("add_locataire/{contratId}",
+            arguments = listOf(navArgument("contratId") { type = NavType.IntType })
+        )
+        { backStackEntry ->
+            val contratId = backStackEntry.arguments?.getInt("contratId")
+            println("Ouverture de add_locataire avec contratId = $contratId")
+            if (contratId != null) {
+                LocataireAdd(onAddLocataire = { navController.popBackStack()},
+                    contratId = contratId
+                )
+            } else {
+                Text("Erreur : Identifiant d'appartement manquant")
+            }
+        }
+
+        composable(
+            route = "batiment_appartements_list/{batimentId}",
+            arguments = listOf(navArgument("batimentId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val batimentId = backStackEntry.arguments?.getInt("batimentId")
+            if (batimentId != null) {
+                AppartementList(batimentId = batimentId,
+                    onAppartementClick = { appartementId ->
+                        navController.navigate("appartement_contrats_list/$appartementId")
+                    },
+                    onAddAppartementClick = {
+                        navController.navigate("add_appartement/$batimentId")
+                    })
+            } else {
+                Text("Erreur : Identifiant de bâtiment manquant")
+            }
+        }
     }
 
 }

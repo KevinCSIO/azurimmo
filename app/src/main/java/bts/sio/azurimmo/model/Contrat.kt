@@ -7,5 +7,6 @@ data class Contrat(
     val montantLoyer: Double,
     val montantCharges: Double,
     val statut: String,
-    val appartement: Appartement
+    val appartement: Appartement,
+    val locataire: Locataire
 )
