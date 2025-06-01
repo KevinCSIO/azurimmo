@@ -1,11 +1,11 @@
-import android.util.Log
+package bts.sio.azurimmo.viewsmodel.contrat
+
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import bts.sio.azurimmo.model.Contrat
 import androidx.compose.runtime.*
 import androidx.lifecycle.viewModelScope
 import bts.sio.azurimmo.api.RetrofitInstance
-import bts.sio.azurimmo.model.Appartement
 import kotlinx.coroutines.launch
 
 class ContratViewModel : ViewModel() {
@@ -52,7 +52,7 @@ class ContratViewModel : ViewModel() {
                     _contrat.value = response
 
                 } else {
-                    _errorMessage.value = "Aucun bâtiment trouvé avec l'ID $contratId"
+                    _errorMessage.value = "Aucun contrat trouvé avec l'ID $contratId"
                 }
             } catch (e: Exception) {
                 _errorMessage.value = "Erreur : ${e.message}"

@@ -8,6 +8,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import bts.sio.azurimmo.model.Locataire
 import bts.sio.azurimmo.views.appartement.AppartementAdd
 import bts.sio.azurimmo.views.appartement.AppartementList
 import bts.sio.azurimmo.views.batiment.BatimentAdd
@@ -15,6 +16,7 @@ import bts.sio.azurimmo.views.batiment.BatimentList
 import bts.sio.azurimmo.views.accueil.AccueilScreen
 import bts.sio.azurimmo.views.contrat.ContratAdd
 import bts.sio.azurimmo.views.contrat.ContratList
+import bts.sio.azurimmo.views.locataire.LocataireDetailScreen
 
 
 @Composable
@@ -64,14 +66,16 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
         }
 
         // Route pour ajouter un appartement
-        composable("add_appartement/{batimentId}",
+        composable(
+            "add_appartement/{batimentId}",
             arguments = listOf(navArgument("batimentId") { type = NavType.IntType })
         )
         { backStackEntry ->
             val batimentId = backStackEntry.arguments?.getInt("batimentId")
             println("Ouverture de add_appartement avec batimentId = $batimentId")
             if (batimentId != null) {
-                AppartementAdd( onAddAppartement = { navController.popBackStack()},
+                AppartementAdd(
+                    onAddAppartement = { navController.popBackStack() },
                     batimentId = batimentId
                 )
             } else {
@@ -87,6 +91,9 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             if (appartementId != null) {
                 ContratList(
                     appartementId = appartementId,
+                    onContratClick = { contratId ->
+                        navController.navigate("contrat_locataire/$contratId")
+                    },
                     onAddContratClick = {
                         navController.navigate("add_contrat/$appartementId")
                     }
@@ -96,14 +103,16 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             }
         }
 
-        composable("add_contrat/{appartementId}",
+        composable(
+            "add_contrat/{appartementId}",
             arguments = listOf(navArgument("appartementId") { type = NavType.IntType })
         )
         { backStackEntry ->
             val appartementId = backStackEntry.arguments?.getInt("appartementId")
             println("Ouverture de add_contrat avec appartementId = $appartementId")
             if (appartementId != null) {
-                ContratAdd(onAddContrat = { navController.popBackStack()},
+                ContratAdd(
+                    onAddContrat = { navController.popBackStack() },
                     appartementId = appartementId
                 )
             } else {
@@ -111,6 +120,16 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             }
         }
 
+        composable(
+            "contrat_locataire/{contratId}",
+            arguments = listOf(navArgument("contratId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val contratId = backStackEntry.arguments?.getInt("contratId")
+            if (contratId != null) {
+                LocataireDetailScreen(contratId = contratId)
+            } else {
+                Text("Erreur : contratId manquant")
+            }
+        }
     }
-
 }

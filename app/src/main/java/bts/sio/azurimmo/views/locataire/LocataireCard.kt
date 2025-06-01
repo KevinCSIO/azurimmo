@@ -1,28 +1,20 @@
-package bts.sio.azurimmo.views.contrat
+package bts.sio.azurimmo.views.locataire
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import bts.sio.azurimmo.model.Contrat
+import bts.sio.azurimmo.model.Locataire
 
 @Composable
-fun ContratCard(contrat: Contrat, onClick: (Int) -> Unit) {
+fun LocataireCard(locataire: Locataire) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
-            .clickable { onClick(contrat.id)},
+            .padding(8.dp),
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp),
         shape = RoundedCornerShape(8.dp)    ) {
         Column(
@@ -30,58 +22,46 @@ fun ContratCard(contrat: Contrat, onClick: (Int) -> Unit) {
         ) {
             Row {
                 Text(
-                    text = "Date d'Entrée : ",
+                    text = "Date de Naissance : ",
                     style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
                 )
                 Text(
-                    text = contrat.dateEntree,
+                    text = locataire.dateN,
                     style = MaterialTheme.typography.bodyLarge
                 )
             }
 
             Row {
                 Text(
-                    text = "Date de Sortie : ",
+                    text = "Lieu de Naissance : ",
                     style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
                 )
                 Text(
-                    text = contrat.dateSortie,
+                    text = locataire.lieuN,
                     style = MaterialTheme.typography.bodyLarge
                 )
             }
 
             Row {
                 Text(
-                    text = "Montant du Loyer : ",
+                    text = "Nom : ",
                     style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
                 )
                 Text(
-                    text = String.format("%.2f", contrat.montantLoyer),
+                    text = locataire.nom,
                     style = MaterialTheme.typography.bodyLarge
                 )
             }
             Row {
                 Text(
-                    text = "Montant des Charges : ",
+                    text = "Prénom : ",
                     style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
                 )
                 Text(
-                    text = String.format("%.2f", contrat.montantCharges),
+                    text = locataire.prenom,
                     style = MaterialTheme.typography.bodyLarge
                 )
             }
-
-            Row {
-                Text(
-                    text = "Statut : ",
-                    style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
-                )
-                Text(
-                    text = contrat.statut,
-                    style = MaterialTheme.typography.bodyLarge
-                )
-            }
-
         }
     }
 }

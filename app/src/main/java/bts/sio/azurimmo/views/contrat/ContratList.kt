@@ -1,7 +1,6 @@
 package bts.sio.azurimmo.views.contrat
 
 import AppartementViewModel
-import ContratViewModel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,13 +26,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import bts.sio.azurimmo.model.Contrat
-import bts.sio.azurimmo.views.appartement.AppartementCard
+import bts.sio.azurimmo.viewsmodel.contrat.ContratViewModel
 
 @Composable
 fun ContratList(
     viewModel: ContratViewModel = viewModel(),
     appartementId: Int,
+    onContratClick: (Int) -> Unit,
     onAddContratClick: () -> Unit
 ) {
     val viewModelApp: AppartementViewModel = viewModel()
@@ -125,7 +124,8 @@ fun ContratList(
                             }
 
                             items(contrats) { contrat ->
-                                ContratCard(contrat = contrat)
+                                ContratCard(contrat = contrat,
+                                    onClick = { onContratClick(contrat.id) })
                             }
                         } else {
                             item {
