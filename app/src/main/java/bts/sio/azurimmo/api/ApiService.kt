@@ -51,8 +51,8 @@ interface ApiService {
     @GET("api/locataires/{id}")
     suspend fun getLocataireById(@Path("id") locataireId: Int): Locataire
 
-    @GET("/api/locataires/contrat/{contratId}")
-    suspend fun getLocatairesByContratId(@Path("contratId") contratId: Int): List<Locataire>
+    @GET("api/contrats/{id}/locataire")
+    suspend fun getLocataireByContratId(@Path("id") contratId: Int): Locataire
 
     @POST("api/locataires/")
     suspend fun addLocataire(@Body locataire: Locataire): Response<Locataire>

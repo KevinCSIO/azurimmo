@@ -27,7 +27,7 @@ fun AccueilScreen(navController: NavHostController) {
             Text("Bâtiments")
         }
 
-        Button(onClick = { navController.navigate("appartement_list")
+        /*Button(onClick = { navController.navigate("appartement_list")
         }) {
             Text("Appartements")
         }
@@ -40,6 +40,6 @@ fun AccueilScreen(navController: NavHostController) {
         Button(onClick = { navController.navigate("locataire_list")
         }) {
             Text("Locataires")
-        }
+        }*/
     }
 }

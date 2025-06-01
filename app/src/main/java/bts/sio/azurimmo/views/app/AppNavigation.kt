@@ -16,7 +16,7 @@ import bts.sio.azurimmo.views.batiment.BatimentList
 import bts.sio.azurimmo.views.accueil.AccueilScreen
 import bts.sio.azurimmo.views.contrat.ContratAdd
 import bts.sio.azurimmo.views.contrat.ContratList
-import bts.sio.azurimmo.views.locataire.LocataireList
+import bts.sio.azurimmo.views.locataire.LocataireDetailScreen
 
 
 @Composable
@@ -66,14 +66,16 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
         }
 
         // Route pour ajouter un appartement
-        composable("add_appartement/{batimentId}",
+        composable(
+            "add_appartement/{batimentId}",
             arguments = listOf(navArgument("batimentId") { type = NavType.IntType })
         )
         { backStackEntry ->
             val batimentId = backStackEntry.arguments?.getInt("batimentId")
             println("Ouverture de add_appartement avec batimentId = $batimentId")
             if (batimentId != null) {
-                AppartementAdd( onAddAppartement = { navController.popBackStack()},
+                AppartementAdd(
+                    onAddAppartement = { navController.popBackStack() },
                     batimentId = batimentId
                 )
             } else {
@@ -90,7 +92,7 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
                 ContratList(
                     appartementId = appartementId,
                     onContratClick = { contratId ->
-                        navController.navigate("contrat_locataires/$contratId")
+                        navController.navigate("contrat_locataire/$contratId")
                     },
                     onAddContratClick = {
                         navController.navigate("add_contrat/$appartementId")
@@ -101,14 +103,16 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
             }
         }
 
-        composable("add_contrat/{appartementId}",
+        composable(
+            "add_contrat/{appartementId}",
             arguments = listOf(navArgument("appartementId") { type = NavType.IntType })
         )
         { backStackEntry ->
             val appartementId = backStackEntry.arguments?.getInt("appartementId")
             println("Ouverture de add_contrat avec appartementId = $appartementId")
             if (appartementId != null) {
-                ContratAdd(onAddContrat = { navController.popBackStack()},
+                ContratAdd(
+                    onAddContrat = { navController.popBackStack() },
                     appartementId = appartementId
                 )
             } else {
@@ -117,54 +121,15 @@ fun AppNavigation(navController: NavHostController, modifier: Modifier = Modifie
         }
 
         composable(
-            route = "contrat_locataires_list/{contratId}",
+            "contrat_locataire/{contratId}",
             arguments = listOf(navArgument("contratId") { type = NavType.IntType })
         ) { backStackEntry ->
             val contratId = backStackEntry.arguments?.getInt("contratId")
             if (contratId != null) {
-                LocataireList(
-                    contratId = contratId,
-                    onAddLocataireClick = {
-                        navController.navigate("add_locataire/$contratId")
-                    }
-                )
+                LocataireDetailScreen(contratId = contratId)
             } else {
-                Text("Erreur : Identifiant de contrat manquant")
-            }
-        }
-
-        composable("add_locataire/{contratId}",
-            arguments = listOf(navArgument("contratId") { type = NavType.IntType })
-        )
-        { backStackEntry ->
-            val contratId = backStackEntry.arguments?.getInt("contratId")
-            println("Ouverture de add_locataire avec contratId = $contratId")
-            if (contratId != null) {
-                LocataireAdd(onAddLocataire = { navController.popBackStack()},
-                    contratId = contratId
-                )
-            } else {
-                Text("Erreur : Identifiant d'appartement manquant")
-            }
-        }
-
-        composable(
-            route = "batiment_appartements_list/{batimentId}",
-            arguments = listOf(navArgument("batimentId") { type = NavType.IntType })
-        ) { backStackEntry ->
-            val batimentId = backStackEntry.arguments?.getInt("batimentId")
-            if (batimentId != null) {
-                AppartementList(batimentId = batimentId,
-                    onAppartementClick = { appartementId ->
-                        navController.navigate("appartement_contrats_list/$appartementId")
-                    },
-                    onAddAppartementClick = {
-                        navController.navigate("add_appartement/$batimentId")
-                    })
-            } else {
-                Text("Erreur : Identifiant de bâtiment manquant")
+                Text("Erreur : contratId manquant")
             }
         }
     }
-
 }

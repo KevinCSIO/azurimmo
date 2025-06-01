@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import bts.sio.azurimmo.model.Contrat
 
 @Composable
-fun ContratCard(contrat: Contrat, onClick: (Int) -> Unit) {  // Notez l'annotation @Composable
+fun ContratCard(contrat: Contrat, onClick: (Int) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()

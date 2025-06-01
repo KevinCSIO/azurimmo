@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 import bts.sio.azurimmo.model.Locataire
 
 @Composable
-fun LocataireCard(locataire: Locataire, onClick: (Int) -> Unit) {
+fun LocataireCard(locataire: Locataire) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
